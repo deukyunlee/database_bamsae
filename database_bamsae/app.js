@@ -1,7 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
-const createError = require('http-errors');
 const path = require('path'); //-> const로
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -22,8 +21,8 @@ const db_port = process.env.db_port
 const port = process.env.PORT
 
 
-// DB pool 생성
-const db = mysql.createPool({
+// DB Connection 생성
+const db = mysql.createConnection({
 	connectionlimit: 100,
 	host: db_host,
 	user: db_user,
@@ -33,48 +32,46 @@ const db = mysql.createPool({
 })
 
 
-// DB 연결
-db.getConnection((err, connection) => {
-	if (err) throw (err)
-	console.log("DB connected successful")
+// DB 연동
+db.connect(function(err) {
+	if (err) throw (err);
+	console.log("DB connected successful");
 })
+
+module.exports = db;
 
 
 // esj 설정
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs'); 
+app.set('views', path.join(__dirname, './views'));
+app.set('view engine', 'ejs');
 
 
-// 에러 핸들러
-app.use(function (req, res, next) {
-	next(createError(404));
-});
+// 미들웨어
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+	secret: '1234',
+	resave: false,
+	saveUninitialized: true,
+	cookie: { maxAge: 60000 }
+}))
+app.use(flash());
+app.use(expressValidator());
 
-app.use(function (err, req, res, next) {
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-	// 에러 페이지 출력
-	res.status(err.status || 500);
-	res.render('error');
-});
+// Router 연결
+var memLogin = require('./router/memLogin.js');
+var memJoin = require('./router/memJoin.js');
 
+app.use('/memLogin', memLogin);
+app.use('/memJoin', memJoin);
 
-// 라우터 연결
 app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
-
-//var memLogin = require('./router/memLogin.js');
-//var memJoin = require('./router/memJoin.js');
-
-//app.use('/memLogin', memLogin);
-//app.use('/memJoin', memJoin);
-
-//app.get('/', (req, res) => {
-//	res.send('Hello World!')
-//})
-
 
 
 // 실행
