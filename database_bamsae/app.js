@@ -1,6 +1,14 @@
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
+const createError = require('http-errors');
+const path = require('path'); //-> const로
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const expressValidator = require('express-validator');
+const flash = require('express-flash');
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
 
 // .env에서 db 서버 credential 가져오기
@@ -56,6 +64,17 @@ app.use(function (err, req, res, next) {
 app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
+
+//var memLogin = require('./router/memLogin.js');
+//var memJoin = require('./router/memJoin.js');
+
+//app.use('/memLogin', memLogin);
+//app.use('/memJoin', memJoin);
+
+//app.get('/', (req, res) => {
+//	res.send('Hello World!')
+//})
+
 
 
 // 실행
