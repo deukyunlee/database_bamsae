@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>회원가입</title>
+</head>
+<body>
+    <h2>회원가입</h2>
+
+    <!--회원가입 에러 처리-->
+    <% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+    <% } %>
+    <% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+    <% } %>
+
+    <!--회원가입 폼-->
+    <section>
+        <form action='/memJoin/post-mem' method="post" name="form">
+            <!--아이디 폼-->
+            ID<br>
+            <h5>아이디는 5~15자 사이로 영문, 숫자만 사용해 입력해주세요.</h5>
+            <input type="text" name="mem_id" , value="">
+            <button type="button" class=".ajaxsend" id="id_check">ID 확인</button><br><br>
+
+            <!--ID 유효성 확인(ajax)-->
+            <script language="javascript">
+                document.querySelector('#id_check').addEventListener('click', function () {
+                    var id = document.forms[0].elements[0].value;
+                    idCheck('/memJoin/idCheck', id)
+                })
+
+                function idCheck(url, id) {
+                    var data_id = {
+                        'mem_id': id
+                    };
+                    data_id = JSON.stringify(data_id);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', url);
+                    xhr.setRequestHeader('Content-type', "application/json");
+                    xhr.send(data_id);
+                    xhr.addEventListener('load', function () {
+                        console.log(xhr.responseText);
+                        var result = JSON.parse(xhr.responseText);
+                        if (result.result == 0)
+                            alert("사용 가능한 아이디입니다.");
+                        else if (result.result == 1)
+                            alert("5~15자 사이로 아이디를 입력해주세요.");
+                        else if (result.result == 2)
+                            alert("영문, 숫자 조합으로만 아이디를 입력해주세요.");
+                        else if (result.result == 3)
+                            alert("중복되는 아이디입니다.");
+                    });
+                }
+            </script>
+
+            <!--비밀번호 폼-->
+            비밀번호<br>
+            <h5>비밀번호는 8~16자 사이로 영문, 숫자, 특수문자를 조합해 작성해주세요.</h5>
+            <input type="password" name="mem_pw"><br>
+            비밀번호 재확인<br>
+            <input type="password" name="mem_pw2">
+            <button type="button" class="ajaxsend" id="pw_check">확인</button><br><br>
+
+            <!--비밀번호 일치 및 유효성 확인(ajax)-->
+            <script language="javascript">
+                document.querySelector('#pw_check').addEventListener('click', function () {
+                    var pw = document.forms[0].elements[2].value
+                    var pw2 = document.forms[0].elements[3].value
+                    pwCheck('/memJoin/pwCheck', pw, pw2)
+                })
+
+                function pwCheck(url, pw, pw2) {
+                    var data_pw = {
+                        'mem_pw': pw
+                    };
+                    data_pw = JSON.stringify(data_pw);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', url);
+                    xhr.setRequestHeader('Content-type', "application/json");
+                    xhr.send(data_pw);
+                    xhr.addEventListener('load', function () {
+                        var result = JSON.parse(xhr.responseText);
+                        if (pw != pw2)
+                            alert("비밀번호가 일치하지 않습니다.");
+                        else if (result.result == 0)
+                            alert("확인되었습니다.");
+                        else if (result.result == 1)
+                            alert("8~16자 사이로 비밀번호를 입력해주세요.");
+                        else if (result.result == 2)
+                            alert("영문, 숫자, 특수문자를 사용해 비밀번호를 입력해주세요.");
+                    });
+                }
+            </script>
+
+            <!--이름 폼-->
+            이름<br>
+            <input type="text" name="mem_name" value=""><br>
+
+            <!--생년월일 폼-->
+            생년월일<br>
+            <input type="date" name="mem_birth">
+            <br><br>
+
+            <!--성별 폼-->
+            성별<br>
+            <label for="man">남성</label>
+            <input type="radio" name="mem_gender" value="0">
+            <label for="woman">여성</label>
+            <input type="radio" name="mem_gender" value="1">
+            <br><br>
+
+            <!--이메일 폼-->
+            이메일<br>
+            <input type="text" name="email_id" placeholder="이메일 ID" maxlength="18"> @
+
+            <!--이메일 도메인 선택 폼-->
+            <input type="text" name="email_domain" placeholder="도메인" maxlength="18">
+            <select class="select" title="도메인 주소 선택" name="domain" onclick="put_domain(value)">
+                <option value="">선택</option>
+                <option value="naver.com">naver.com</option>
+                <option value="gmail.com">gmail.com</option>
+                <option value="hanmail.net">hanmail.net</option>
+                <option value="hotmail.com">hotmail.com</option>
+                <option value="korea.com">korea.com</option>
+                <option value="nate.com">nate.com</option>
+                <option value="yahoo.com">yahoo.com</option>
+            </select><br>
+            <script language="javascript">
+                function put_domain(value) {
+                    document.form.email_domain.value = value;
+                }
+            </script>
+            <br>
+
+            <!--휴대폰 번호 폼-->
+            휴대폰 번호<br>
+            <input type="tel" name="mem_phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="010-****-****">
+            <button type="button" id="send_cer">인증 번호 받기</button><br>
+
+            <!--휴대폰 번호 인증-->
+            <input type="text" name="cert" placeholder="인증번호를 입력해주세요.">
+            <input type="button" name="btn_cert" value="확인"><br><br>
+
+            <!--주소지 폼-->
+            주소지
+            <input type="button" value="주소 검색" onclick="goPopup()" /><br>
+            <input name="zipNo" type="text" placeholder="우편번호" /><br>
+            <input name="roadAddrPart1" type="text" placeholder="도로명주소" /><br>
+            <input name="addrDetail" type="text" placeholder="상세주소" />
+
+            <!--주소 검색 api 처리-->
+            <script language="javascript">
+                function goPopup() {
+                    var open_win = window.open('/memJoin/post-add', 'popup', 'width=570,height=420, scrollbars=yes, resizable=yes');
+                }
+                function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo) {
+                    document
+                        .form
+                        .roadAddrPart1
+                        .value = roadAddrPart1;
+                    document
+                        .form
+                        .addrDetail
+                        .value = addrDetail;
+                    document
+                        .form
+                        .zipNo
+                        .value = zipNo;
+                }
+            </script>
+
+            <!--가입하기 & 취소 버튼-->
+            <br><br><input type="submit" value="가입하기">
+            <button href="/memLogin">취소</button>
+        </form>
+    </section>
+</body>
+</html>

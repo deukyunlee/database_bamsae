@@ -1,16 +1,17 @@
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
-const path = require('path'); //-> constë¡œ
+const path = require('path'); //-> const·Î
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const expressValidator = require('express-validator');
 const flash = require('express-flash');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const http = require('http');
 
 
-// .envì—ì„œ db ì„œë²„ credential ê°€ì ¸ì˜¤ê¸°
+// .env¿¡¼­ db ¼­¹ö credential °¡Á®¿À±â
 require('dotenv').config()
 
 const db_host = process.env.db_host
@@ -21,7 +22,7 @@ const db_port = process.env.db_port
 const port = process.env.PORT
 
 
-// DB Connection ìƒì„±
+// DB Connection »ý¼º
 const db = mysql.createConnection({
 	connectionlimit: 100,
 	host: db_host,
@@ -32,7 +33,7 @@ const db = mysql.createConnection({
 })
 
 
-// DB ì—°ë™
+// DB ¿¬µ¿
 db.connect(function(err) {
 	if (err) throw (err);
 	console.log("DB connected successful");
@@ -41,12 +42,12 @@ db.connect(function(err) {
 module.exports = db;
 
 
-// esj ì„¤ì •
+// esj ¼³Á¤
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
 
-// ë¯¸ë“¤ì›¨ì–´
+// ¹Ìµé¿þ¾î
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -62,18 +63,18 @@ app.use(flash());
 app.use(expressValidator());
 
 
-// Router ì—°ê²°
+// Router ¿¬°á
+var main = require('./router/main.js');
 var memLogin = require('./router/memLogin.js');
 var memJoin = require('./router/memJoin.js');
+var memFind = require('./router/memFind.js');
 
+app.use('/', main);
 app.use('/memLogin', memLogin);
 app.use('/memJoin', memJoin);
-
-app.get('/', (req, res) => {
-	res.send('Hello World!')
-})
+app.use('/memFind', memFind);
 
 
-// ì‹¤í–‰
+// ½ÇÇà
 app.listen(port, () => console.log(`Server Started on port ${port}`))
 module.exports = app;
