@@ -81,6 +81,13 @@ app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
 
+//var memLogin = require('./router/memLogin.js');
+//var memJoin = require('./router/memJoin.js');
+var movieSearch = require('./router/movieSearch.js');
+
+//app.use('/memLogin', memLogin);
+//app.use('/memJoin', memJoin);
+app.use('/movieSearch',movieSearch)
 
 // 실행
 app.listen(port, () => console.log(`Server Started on port ${port}`))
