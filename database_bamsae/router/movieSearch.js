@@ -1,26 +1,20 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
+const db = require('../app.js')
 
-var mysql      = require('mysql');
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'dbwls0924@',
-  database : 'database'
-});
- 
-connection.connect();
-
-//주석
+//영화 제목으로 검색
 router.get('/', async (req, res) => {
     const movie_title = req.query.movie_title;
     const query = '%'+movie_title+'%';
-    //주석..이야...
-    await connection.query('SELECT * FROM MOVIE WHERE movie_title LIKE ?',[query], (err, data) => {
-        console.log(data);
-        console.log(query);
-        res.json(data)
+
+    await db.query('SELECT * FROM MOVIE WHERE movie_title LIKE ?',[query], (err, data) => {
+        if(data.length<=0){
+            res.send({ "status": false, "length": data.length});
+        }else{
+            res.send({ "status": true, "length": data.length, "data": data });
+        }
+        
     });
 });
 
