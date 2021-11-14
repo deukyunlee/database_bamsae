@@ -3,7 +3,7 @@ const app = express();
 const router = express.Router();
 const db = require('../app.js')
 
-//°³ºÀ ¿¹Á¤ÀÛ ¼øÀ§º° Á¶È¸(Âò ¸¹Àº ¼øÀ¸·Î ±¸¼º) 
+//ê°œë´‰ ì˜ˆì •ìž‘ ìˆœìœ„ë³„ ì¡°íšŒ(ì°œ ë§Žì€ ìˆœìœ¼ë¡œ êµ¬ì„±) 
 router.get('/upcomingList', async (req, res) => {
     await db.query(`SELECT movie_id,movie_title,count(mem_id) FROM MOVIE natural join WISH
                      WHERE movie_release > CURDATE() GROUP BY movie_id`, (err, data) => {
@@ -16,7 +16,7 @@ router.get('/upcomingList', async (req, res) => {
     });
 });
 
-//ÇöÀç »ó¿µÀÛ ¼øÀ§º° Á¶È¸(Âò ¸¹Àº ¼øÀ¸·Î ±¸¼º) -> ÃßÈÄ °ü¶÷°´¼ö ¸¹Àº ¼øÀ¸·Î º¯°æ ÇÒ¼öµµ ÀÖÀ½
+//í˜„ìž¬ ìƒì˜ìž‘ ìˆœìœ„ë³„ ì¡°íšŒ(ì°œ ë§Žì€ ìˆœìœ¼ë¡œ êµ¬ì„±) -> ì¶”í›„ ê´€ëžŒê°ìˆ˜ ë§Žì€ ìˆœìœ¼ë¡œ ë³€ê²½ í• ìˆ˜ë„ ìžˆìŒ
 router.get('/currentList', async (req, res) => {
     await db.query(`SELECT movie_id,movie_title,count(mem_id) FROM MOVIE natural join WISH
     WHERE movie_release <= CURDATE() GROUP BY movie_id`, (err, data) => {
@@ -29,7 +29,7 @@ router.get('/currentList', async (req, res) => {
     });
 });
 
-//°³ºÀ ¿¹Á¤ÀÛ »ó¼¼ Á¶È¸
+//ê°œë´‰ ì˜ˆì •ìž‘ ìƒì„¸ ì¡°íšŒ
 router.get('/upcoming', async (req, res) => {
     const movie_id = req.query.movie_id;
 
@@ -43,7 +43,7 @@ router.get('/upcoming', async (req, res) => {
     });
 });
 
-//ÇöÀç »ó¿µÀÛ »ó¼¼ Á¶È¸
+//í˜„ìž¬ ìƒì˜ìž‘ ìƒì„¸ ì¡°íšŒ
 router.get('/current', async (req, res) => {
     const movie_id = req.query.movie_id;
 

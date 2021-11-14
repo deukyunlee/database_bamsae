@@ -3,7 +3,7 @@ const app = express();
 const router = express.Router();
 const db = require('../app.js')
 
-//¿µÈ­ Á¦¸ñÀ¸·Î °Ë»ö
+//Â¿ÂµÃˆÂ­ ÃÂ¦Â¸Ã±Ã€Â¸Â·ÃŽ Â°Ã‹Â»Ã¶
 router.get('/', async (req, res) => {
     const movie_title = req.query.movie_title;
     const query = '%'+movie_title+'%';

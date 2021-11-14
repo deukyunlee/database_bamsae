@@ -1,13 +1,14 @@
 var express = require('express');
 var request = require('request');
 var httpBuildQuery = require('http-build-query') ;
-const http = require('http');
+var router = express.Router();
+const path = require('path');
+var db = require('../app.js');
 
 const adminKey = 'e28e7f1cbe7c53635ac1286c3358ee89';
-const app = express();
 var httpPort = 3000;
 
-app.get('/', function (req, res){
+router.get('/', function (req, res){
 
     let _url = 'https://kapi.kakao.com/v1/payment/ready';
 
@@ -25,7 +26,7 @@ app.get('/', function (req, res){
         'total_amount': '2000',
         'vat_amount': '200',
         'tax_free_amount': '0',
-        'approval_url': 'https://developers.kakao.com', // localhost에 https 적용할 때 까지 임시로 사용
+        'approval_url': 'http://localhost:3000/paySuccess', // localhost에 https 적용할 때 까지 임시로 사용
         'fail_url': 'https://developers.kakao.com',
         'cancel_url': 'https://developers.kakao.com'
     });
@@ -52,14 +53,4 @@ app.get('/', function (req, res){
         return;
     });
 });
-
-// app.get('/success', function(req,res){
-//     var query = req.query.pg_token
-//     res.send('here2');
-// })
-
-
-app.listen(httpPort, function(){
-    console.log('running');
-});
-
+module.exports= router;

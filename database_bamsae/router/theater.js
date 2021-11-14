@@ -3,9 +3,9 @@ const app = express();
 const router = express.Router();
 const db = require('../app.js')
 
-//Áö¿ª ¼±ÅÃ -> ÁöÁ¡ ¼±ÅÃ -> ¼±ÅÃ ±ØÀåÀÇ »ó¿µ½Ã°£Ç¥
-//¿ì¼± ¸ðµç Á¤º¸°¡ º¸ÀÌ°í ±× ¾È¿¡¼­ ¼±ÅÃ
-//Áö¿ª ÁöÁ¡ »ó¿µ¿µÈ­ »ó¿µ½Ã°£ Á¶È¸ °¡´É
+//ì§€ì—­ ì„ íƒ -> ì§€ì  ì„ íƒ -> ì„ íƒ ê·¹ìž¥ì˜ ìƒì˜ì‹œê°„í‘œ
+//ìš°ì„  ëª¨ë“  ì •ë³´ê°€ ë³´ì´ê³  ê·¸ ì•ˆì—ì„œ ì„ íƒ
+//ì§€ì—­ ì§€ì  ìƒì˜ì˜í™” ìƒì˜ì‹œê°„ ì¡°íšŒ ê°€ëŠ¥
 router.get('/', async (req, res) => {
     await db.query(`select  theater_id,audit_id,audit_no,audit_type,sched_id,movie_id,screen_beg,screen_fin 
                     from theater natural join auditorium natural join schedule;`, (err, data) => {
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
         
 });
 
-//ÁöÁ¡ º° »ó¼¼ Á¤º¸ 
+//ì§€ì  ë³„ ìƒì„¸ ì •ë³´ 
 router.get('/tid', async (req, res) => {
     const theater_id = req.query.theater_id;
     await db.query('SELECT * from theater WHERE theater_id = ?',[theater_id], (err, data) => {

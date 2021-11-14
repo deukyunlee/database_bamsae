@@ -28,7 +28,8 @@ const db = mysql.createConnection({
 	user: db_user,
 	password: db_password,
 	database: db_database,
-	port: db_port
+	port: db_port,
+	multipleStatements: true
 })
 
 
@@ -41,7 +42,7 @@ db.connect(function(err) {
 module.exports = db;
 
 
-// esj 설정
+// ejs 설정
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
@@ -60,34 +61,44 @@ app.use(session({
 }))
 app.use(flash());
 //app.use(expressValidator());
+app.use('/node_modules', express.static(path.join(__dirname + '/node_modules')))
 
 
 // Router 연결
-var memLogin = require('./router/memLogin.js');
-//var memJoin = require('./router/memJoin.js');
-var movieSearch = require('./router/movieSearch.js');
-var store = require('./router/store.js');
-var movie = require('./router/movie.js');
-var theater = require('./router/theater.js');
+var memLogin = require('./router/memLogin');
+// var memJoin = require('./router/memJoin.js');
+var movieSearch = require('./router/movieSearch');
+var store = require('./router/store');
+var movie = require('./router/movie');
+var theater = require('./router/theater')
+var movieHistory = require('./router/movieHistory');
+var point = require('./router/point');
+var fastTicket = require('./router/fastTicket');
+var memWish = require('./router/memWish');
+var movieSchedule = require('./router/movieSchedule');
+var kakaoPay = require('./router/kakaopay');
+var paySuccess = require('./router/paySuccess');
+var result = require('./router/result');
+
 
 app.use('/memLogin', memLogin);
+// app.use('/memJoin', memJoin);
 app.use('/movieSearch', movieSearch);
 app.use('/store', store);
 app.use('/movie', movie);
 app.use('/theater',theater);
-//app.use('/memJoin', memJoin);
+app.use('/movieHistory', movieHistory);
+app.use('/point', point);
+app.use('/fastTicket', fastTicket);
+app.use('/memWish', memWish);
+app.use('/movieSchedule',movieSchedule);
+app.use('/kakaoPay',kakaoPay);
+app.use('/paySuccess',paySuccess);
+app.use('/result',result);
 
 app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
-
-//var memLogin = require('./router/memLogin.js');
-//var memJoin = require('./router/memJoin.js');
-var movieSearch = require('./router/movieSearch.js');
-
-//app.use('/memLogin', memLogin);
-//app.use('/memJoin', memJoin);
-app.use('/movieSearch',movieSearch)
 
 // 실행
 app.listen(port, () => console.log(`Server Started on port ${port}`))

@@ -3,12 +3,12 @@ const app = express();
 const router = express.Router();
 const db = require('../app.js')
 
-//Ä«Å×°í¸® º° ºÐ·ù(°ü¶÷±Ç/½º³¼/ÆÐÅ°Áö)
+//ì¹´í…Œê³ ë¦¬ ë³„ ë¶„ë¥˜(ê´€ëžŒê¶Œ/ìŠ¤ë‚µ/íŒ¨í‚¤ì§€)
 router.get('/', async (req, res) => {
     const product_type = req.query.product_type;
     console.log(product_type);
     
-    if(product_type==='best'){//Á¾·ùº°·Î 3°³¾¿ ¿ì¼± »ÌÀ½
+    if(product_type==='best'){//ì¢…ë¥˜ë³„ë¡œ 3ê°œì”© ìš°ì„  ë½‘ìŒ
         await db.query(`(SELECT * FROM PRODUCT WHERE PRODUCT_TYPE = '1' limit 3)
                     union (SELECT * FROM PRODUCT WHERE PRODUCT_TYPE = '2' limit 3)
                     union (SELECT * FROM PRODUCT WHERE PRODUCT_TYPE = '3' limit 3);`, (err, data) => {
@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-//»ó¼¼Á¶È¸
+//ìƒì„¸ì¡°íšŒ
 router.get('/pid', async (req, res) => {
     const product_id = req.query.product_id;
 

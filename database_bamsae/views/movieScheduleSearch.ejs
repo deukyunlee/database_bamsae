@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset= "UTF-8">
+        <title>email form</title>
+   
+     </head>
+     <body>
+         <h1>영화 일정 검색</h1>
+         <form action = "/result/movieSchedule" method = "post">
+             영화 제목 : <input type = "text" name = "title">
+             날짜 : <input type = "text" name = "date">
+             <input type = "submit" value = "검색">
+
+             <script>
+                 function getURL(){
+                     alert("THE URL of this page is " + window.location.href);
+                 }
+             </script>
+
+             <button type = "button" onclick="getURL()">get page</button>
+     </body>
+</html>
+

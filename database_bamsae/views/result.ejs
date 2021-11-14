@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        td, th{
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+    <script> var parsed_data = '<%- JSON.stringify(title) %>'; 
+             title = JSON.parse(parsed_data)</script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+
+<body>
+    <h1><%= title %></h1>
+    <form>
+
+        <table>
+            <% if(title  === "빠른 예매 조회") { %>
+                <tr><th>영화제목</th>
+                    <th>상영시간</th>
+                    <th>상영관번호</th></tr>
+
+            <% dbQuery.forEach(function (value) { %>  
+            <tr>
+                <td><%= value.movie_title %></td>
+                <td><%= value.screen_beg %></td>
+                <td><%= value.audit_id %></td>
+
+                <% if (value.movie_age===19) { %>
+                    <script>
+                        alert('[청소년 관람불가] 입장 시, 신분증을 반드시 지참하시기 바랍니다.')
+                    </script>
+                <% } %>
+                </tr>
+                
+            <% }); %>
+            <% } %>
+
+            <% if(title  === "찜 목록") { %>
+                <tr><th>회원 ID</th>
+                <th>찜 목록</th></tr>
+            <% dbQuery.forEach(function (value) { %>  
+            <tr>
+                <td><%= value.mem_id %></td>
+                <td><%= value.movie_title%></td>
+            </tr>
+            <% }); %>
+            <% } %>
+       
+            <% if(title  === "예매내역 상세 조회") { %>
+                <tr><th>영화제목</th>
+                <th>좌석</th>
+                <th>상영일자</th>
+                <th>가격</th>
+                <th>결제시간</th></tr>
+            <% dbQuery.forEach(function (value) { %>  
+            <tr>
+                <td><%= value.movie_title %></td>
+                <td><%= value.seat_num %></td>
+                <td><%= value.viewing_date %></td>
+                <td><%= value.total_price %></td>    
+                <td><%= value.payment_date %></td>
+            </tr>
+            <% }); %>
+            <% } %>
+
+            <% if(title  === "극장, 날짜에 따른 상영 정보") { %>
+                <tr><th>영화제목</th>
+                <th>상영시간</th>
+                <th>극장</th>
+                <th>상영관번호</th></tr>
+            <% dbQuery.forEach(function (value) { %>  
+            <tr>
+                <td><%= value.movie_title %></td>
+                <td><%= value.screen_beg %></td>
+                <td><%= value.theater_id %></td>    
+                <td><%= value.audit_id %></td>    
+            </tr>
+            <% }); %>
+            <% } %>
+
+            <% if(title  === "멤버십") { %>
+                <tr><th>아이디</th>
+                <th>포인트사용처</th>
+                <th>포인트</th>
+                <th>멤버십</th></tr>
+            <% dbQuery.forEach(function (value) { %>  
+            <tr>
+                <td><%= value.mem_id %></td>
+                <td><%= value.point_use %></td>
+                <td><%= value.point_num %></td>
+                <td><%= value.mem_lv %></td>    
+            </tr>
+            <% }); %>
+            <% } %>
+
+        </table>
+    </form>
+    
+</body>
+</html>

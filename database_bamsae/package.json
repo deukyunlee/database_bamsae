@@ -1,6 +1,7 @@
 {
   "name": "database",
   "version": "1.0.0",
+  "description": "",
   "main": "database.js",
   "scripts": {
     "start": "node pay.js"
@@ -8,19 +9,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
-    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-flash": "^0.0.2",
     "express-session": "^1.17.2",
     "express-validator": "^6.13.0",
     "http-build-query": "^0.7.0",
     "jade": "^0.29.0",
+    "jqeury": "^0.0.1-security",
+    "jquery": "^3.6.0",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
-    "path": "^0.12.7",
-    "request-promise-native": "^1.0.9"
-  },
-  "description": ""
+    "nodemon": "^2.0.15",
+    "request-promise-native": "^1.0.9",
+    "session": "^0.1.0"
+  }
 }
