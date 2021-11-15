@@ -63,31 +63,26 @@ app.use(flash());
 
 
 // Router 연결
-var memLogin = require('./router/memLogin.js');
+//var memLogin = require('./router/memLogin.js');
 //var memJoin = require('./router/memJoin.js');
 var movieSearch = require('./router/movieSearch.js');
 var store = require('./router/store.js');
 var movie = require('./router/movie.js');
 var theater = require('./router/theater.js');
+var memberView = require('./router/memberView.js');
 
-app.use('/memLogin', memLogin);
+//app.use('/memLogin', memLogin);
 app.use('/movieSearch', movieSearch);
 app.use('/store', store);
 app.use('/movie', movie);
 app.use('/theater',theater);
+app.use('/memberView',memberView);
 //app.use('/memJoin', memJoin);
 
 app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
 
-//var memLogin = require('./router/memLogin.js');
-//var memJoin = require('./router/memJoin.js');
-var movieSearch = require('./router/movieSearch.js');
-
-//app.use('/memLogin', memLogin);
-//app.use('/memJoin', memJoin);
-app.use('/movieSearch',movieSearch)
 
 // 실행
 app.listen(port, () => console.log(`Server Started on port ${port}`))
