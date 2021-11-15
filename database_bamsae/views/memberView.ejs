@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset= "UTF-8">
+        <title>회원 목록 확인</title>
+   
+     </head>
+     <body>
+         <h1>회원 전체 명부</h1>
+         <form action = "/memberView" method = "post">
+             영화 제목 : <input type = "text" name = "title">
+             <input type = "submit" value = "검색">
+
+             <script>
+                 function getURL(){
+                     alert("THE URL of this page is " + window.location.href);
+                 }
+             </script>
+
+             <button type = "button" onclick="getURL()">get page</button>
+     </body>
+</html>

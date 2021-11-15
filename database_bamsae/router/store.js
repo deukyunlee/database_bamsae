@@ -5,7 +5,7 @@ const db = require('../app.js')
 
 //카테고리 별 분류(관람권/스낵/패키지)
 router.get('/', async (req, res) => {
-    const product_type = req.query.product_type;
+    var product_type = req.query.product_type;
     console.log(product_type);
     
     if(product_type==='best'){//종류별로 3개씩 우선 뽑음

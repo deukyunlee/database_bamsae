@@ -83,6 +83,15 @@ var result = require('./router/result');
 
 app.use('/memLogin', memLogin);
 // app.use('/memJoin', memJoin);
+//var memLogin = require('./router/memLogin.js');
+//var memJoin = require('./router/memJoin.js');
+var movieSearch = require('./router/movieSearch.js');
+var store = require('./router/store.js');
+var movie = require('./router/movie.js');
+var theater = require('./router/theater.js');
+var memberView = require('./router/memberView.js');
+
+//app.use('/memLogin', memLogin);
 app.use('/movieSearch', movieSearch);
 app.use('/store', store);
 app.use('/movie', movie);
@@ -95,10 +104,13 @@ app.use('/movieSchedule',movieSchedule);
 app.use('/kakaoPay',kakaoPay);
 app.use('/paySuccess',paySuccess);
 app.use('/result',result);
+app.use('/memberView',memberView);
+//app.use('/memJoin', memJoin);
 
 app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
+
 
 // 실행
 app.listen(port, () => console.log(`Server Started on port ${port}`))
