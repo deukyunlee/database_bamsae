@@ -79,19 +79,12 @@ var movieSchedule = require('./router/movieSchedule');
 var kakaoPay = require('./router/kakaopay');
 var paySuccess = require('./router/paySuccess');
 var result = require('./router/result');
+var memberView = require('./router/memberView');
+var question = require('./router/question');
+var platform = require('./router/platform');
 
 
 app.use('/memLogin', memLogin);
-// app.use('/memJoin', memJoin);
-//var memLogin = require('./router/memLogin.js');
-//var memJoin = require('./router/memJoin.js');
-var movieSearch = require('./router/movieSearch.js');
-var store = require('./router/store.js');
-var movie = require('./router/movie.js');
-var theater = require('./router/theater.js');
-var memberView = require('./router/memberView.js');
-
-//app.use('/memLogin', memLogin);
 app.use('/movieSearch', movieSearch);
 app.use('/store', store);
 app.use('/movie', movie);
@@ -105,7 +98,9 @@ app.use('/kakaoPay',kakaoPay);
 app.use('/paySuccess',paySuccess);
 app.use('/result',result);
 app.use('/memberView',memberView);
-//app.use('/memJoin', memJoin);
+app.use('/question',question); 
+app.use('/platform',platform); 
+
 
 app.get('/', (req, res) => {
 	res.send('Hello World!')

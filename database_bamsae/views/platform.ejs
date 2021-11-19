@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <meta charset="UTF-8">
+    <title>store</title>
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        function getProduct() {
+            $.ajax({
+                url: '/platform/productRead',
+                dataType: 'json',
+                type: 'GET',
+                data: {},
+                success: function (result) {
+                    console.log(result);
+                    var table = $('#table')
+                    if (result["status"]) {
+                        for (let index = 0; index < result["length"]; index++) {
+                            var data = result["data"][index];
+                            html = `<tr> 
+                                        <td>${data.product_id}</td>
+                                        <td>${data.product_title}</td>
+                                        <td>${data.product_price}</td>
+                                        <td>${data.product_content}</td>
+                                        <td>${data.product_type}</td>
+                                        `;
+                            table.append(html);
+                        }
+                    }
+                }
+            });
+        };
+
+        function insertProduct() {
+
+            var product_id = $('#product_id').val();
+            var product_title = $('#product_title').val();
+            var product_price = $('#product_price').val();
+            var product_content = $('#product_content').val();
+            var product_type = $('#product_type').val();
+            $.ajax({
+                url: '/platform/productInsert',
+                dataType: 'json',
+                type: 'GET',
+                data: {
+                    "product_id": product_id,
+                    "product_title": product_title,
+                    "product_price": product_price,
+                    "product_content": product_content,
+                    "product_type": product_type
+                },
+                success: function (result) {
+                    if (result["status"]) {
+                        alert("추가 성공")
+                    }
+                }
+            });
+        };
+
+        function updateProduct() {
+
+            var update_id = $('#update_id').val();
+            var update_title = $('#update_title').val();
+            var update_price = $('#update_price').val();
+            var update_content = $('#update_content').val();
+            var update_type = $('#update_type').val();
+            $.ajax({
+                url: '/platform/productUpdate',
+                dataType: 'json',
+                type: 'GET',
+                data: {
+                    "product_id": update_id,
+                    "product_title": update_title,
+                    "product_price": update_price,
+                    "product_content": update_content,
+                    "product_type": update_type
+                },
+                success: function (result) {
+                    if (result["status"]) {
+                        alert("수정 성공")
+                    }
+                }
+            });
+        };
+
+        function deleteProduct() {
+            var del_id = $('#del_id').val();
+
+            $.ajax({
+                url: '/platform/productDelete',
+                dataType: 'json',
+                type: 'GET',
+                data: { "product_id": del_id },
+                success: function (result) {
+                    if (result["status"]) {
+                        alert("삭제 성공")
+                    }
+                }
+            });
+        };
+
+
+    </script>
+</head>
+
+<body>
+    <h1>상품정보관리</h1>
+    <div>
+        <table id="table">
+            <th>상품id</th>
+            <th>이름</th>
+            <th>가격</th>
+            <th>내용</th>
+            <th>카테고리</th>
+        </table>
+    </div>
+    <button type="button" onclick="getProduct()">get product</button>
+    <hr>
+    <div>
+        상품id : <input type="text" id="product_id">
+        이름 : <input type="text" id="product_title">
+        가격 : <input type="text" id="product_price">
+        내용 : <input type="text" id="product_content">
+        카테고리(1,2) : <input type="text" id="product_type">
+    </div>
+    <button type="button" onclick="insertProduct()">insert product</button>
+    <hr>
+    <div>
+        상품id : <input type="text" id="update_id">
+        이름 : <input type="text" id="update_title">
+        가격 : <input type="text" id="update_price">
+        내용 : <input type="text" id="update_content">
+        카테고리(1,2) : <input type="text" id="update_type">
+    </div>
+    <button type="button" onclick="updateProduct()">update product</button>
+    <hr>
+    <div>
+        상품id : <input type="text" id="del_id">
+    </div>
+    <button type="button" onclick="deleteProduct()">delete product</button>
+</body>
+</body>
+
+</html>

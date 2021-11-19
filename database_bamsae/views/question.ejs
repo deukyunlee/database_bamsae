@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <meta charset="UTF-8">
+    <title>question</title>
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        function getOne() {
+            $.ajax({
+                url: '/question/1to1',
+                dataType: 'json',
+                type: 'GET',
+                data: {},
+                success: function (result) {
+                    console.log(result);
+                    var table = $('#table')
+                    if (result["status"]) {
+                        for (let index = 0; index < result["length"]; index++) {
+                            var data = result["data"][index];
+                            html = `<tr>
+                                        <td>${data.qna_id}</td>
+                                        <td>${data.mem_id}</td>
+                                        <td>${data.qna_date}</td>
+                                        <td>${data.qna_title}</td>
+                                        <td>${data.qna_content}</td>
+                                        <td>${data.qna_category}</td>
+                                        <td>${data.is_completed}</td>
+                                        `;
+                            table.append(html);
+                        }
+                    }
+                }
+            });
+        };
+
+        function getNoticeAll() {
+            $.ajax({
+                url: '/question/noticeAll',
+                dataType: 'json',
+                type: 'GET',
+                data: {},
+                success: function (result) {
+                    console.log(result);
+                    var table = $('#table2')
+                    if (result["status"]) {
+                        for (let index = 0; index < result["length"]; index++) {
+                            var data = result["data"][index];
+                            html = `<tr> 
+                                        <td>${data.post_no}</td>
+                                        <td>${data.emp_id}</td>
+                                        <td>${data.theater_id}</td>
+                                        <td>${data.post_type}</td>
+                                        <td>${data.post_title}</td>
+                                        <td>${data.post_content}</td>
+                                        <td>${data.posted_date}</td>
+                                        <td>${data.modified_date}</td>
+                                        `;
+                            table.append(html);
+                        }
+                    }
+                }
+            });
+        };
+        function getNoticeTheater() {
+            $.ajax({
+                url: '/question/noticeTheater',
+                dataType: 'json',
+                type: 'GET',
+                data: {},
+                success: function (result) {
+                    console.log(result);
+                    var table = $('#table3')
+                    if (result["status"]) {
+                        for (let index = 0; index < result["length"]; index++) {
+                            var data = result["data"][index];
+                            html = `<tr> 
+                                        <td>${data.post_no}</td>
+                                        <td>${data.emp_id}</td>
+                                        <td>${data.theater_id}</td>
+                                        <td>${data.post_type}</td>
+                                        <td>${data.post_title}</td>
+                                        <td>${data.post_content}</td>
+                                        <td>${data.posted_date}</td>
+                                        <td>${data.modified_date}</td>
+                                        `;
+                            table.append(html);
+                        }
+                    }
+                }
+            });
+        };
+        function getTheaterSelect(th) {
+            $.ajax({
+                url: '/question/theaterSelect',
+                dataType: 'json',
+                type: 'GET',
+                data: {"loc":th},
+                success: function (result) {
+                    console.log(result);
+                    var table = $('#table3')
+                    if (result["status"]) {
+                        for (let index = 0; index < result["length"]; index++) {
+                            var data = result["data"][index];
+                            html = `<tr> 
+                                        <td>${data.post_no}</td>
+                                        <td>${data.emp_id}</td>
+                                        <td>${data.theater_id}</td>
+                                        <td>${data.post_type}</td>
+                                        <td>${data.post_title}</td>
+                                        <td>${data.post_content}</td>
+                                        <td>${data.posted_date}</td>
+                                        <td>${data.modified_date}</td>
+                                        `;
+                            table.append(html);
+                        }
+                    }
+                }
+            });
+        };
+
+    </script>
+</head>
+
+<body>
+    <h1>1:1 문의</h1>
+    <div>
+        <table id="table">
+            <th>문의id</th>
+            <th>회원id</th>
+            <th>작성일자</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>카테고리</th>
+            <th>답변여부</th>
+        </table>
+    </div>
+    <button type="button" onclick="getOne()">get 1:1</button>
+
+    <hr>
+    <h1>통합문의</h1>
+    <div>
+        <table id="table2">
+            <th>공지사항id</th>
+            <th>사원id</th>
+            <th>극장id</th>
+            <th>카테고리</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>작성일자</th>
+            <th>수정일자</th>
+        </table>
+    </div>
+    <button type="button" onclick="getNoticeAll()">get NoticeAll</button>
+
+    <hr>
+    <h1>극장별</h1>
+    <div>
+        <table id="table3">
+            <th>공지사항id</th>
+            <th>사원id</th>
+            <th>극장id</th>
+            <th>카테고리</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>작성일자</th>
+            <th>수정일자</th>
+        </table>
+    </div>
+    <button type="button" onclick="getNoticeTheater()">전체보기</button>
+    <button type="button" onclick="getTheaterSelect('BU')">부산지역보기</button>
+
+</body>
+</body>
+
+</html>

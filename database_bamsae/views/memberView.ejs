@@ -1,22 +1,184 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <meta charset= "UTF-8">
-        <title>ȸ�� ��� Ȯ��</title>
-   
+        <title>memberView</title>
+        <script>
+             $(document).ready(function(){
+
+             });
+
+            function getList() {
+                $.ajax({
+                    url: '/memberView/viewAll',
+                      dataType: 'json',
+                      type: 'GET',
+                      data: {},
+                      success: function(result) {
+                          console.log(result);
+                          var table = $('#table')
+                          if (result["status"]) {
+                             for (let index = 0; index < result["length"]; index++) {
+                                 var data = result["data"][index];
+                                 var html=`<tr>
+                                        <td>${data.mem_id}</td>
+                                        <td>${data.mem_name}</td>
+                                        <td>${data.mem_phone}</td>
+                                        <td>${data.mem_email}</td>
+                                        <td>${data.mem_gender}</td>
+                                        <td>${data.mem_city}</td>
+                                        <td>${data.mem_address}</td>
+                                        <td>${data.mem_join}</td>
+                                        <td>${data.mem_point}</td>
+                                        <td>${data.mem_lv}</td>
+                                        <td>${data.mem_sanc}</td>
+                                        `;
+                                        table.append(html);
+                             }
+                          }
+                      }
+                  });
+            };
+
+            function getLv(level) {
+                $.ajax({
+                    url: '/memberView/viewLv',
+                      dataType: 'json',
+                      type: 'GET',
+                      data: {"level":level},
+                      success: function(result) {
+                          console.log(result);
+                          var table = $('#table')
+                          if (result["status"]) {
+                             for (let index = 0; index < result["length"]; index++) {
+                                 var data = result["data"][index];
+                                 var html=`<tr>
+                                        <td>${data.mem_id}</td>
+                                        <td>${data.mem_name}</td>
+                                        <td>${data.mem_phone}</td>
+                                        <td>${data.mem_email}</td>
+                                        <td>${data.mem_gender}</td>
+                                        <td>${data.mem_city}</td>
+                                        <td>${data.mem_address}</td>
+                                        <td>${data.mem_join}</td>
+                                        <td>${data.mem_point}</td>
+                                        <td>${data.mem_lv}</td>
+                                        <td>${data.mem_sanc}</td>
+                                        `;
+                                        table.append(html);
+                             }
+                          }else{
+                              alert("data 없음");
+                          }
+                      }
+                  });
+            };
+
+            function getSanc() {
+                var table2 = $('#table2')
+                $.ajax({
+                    url: '/memberView/viewSanc',
+                      dataType: 'json',
+                      type: 'GET',
+                      data: {},
+                      success: function(result) {
+                          console.log(result)
+                          if (result["status"]==true) {
+                             for (let index = 0; index < result["length"]; index++) {
+                                 var data = result["data"][index];
+                                 var html=`<tr>
+                                        <td>${data.mem_id}</td>
+                                        <td>${data.mem_name}</td>
+                                        <td>${data.mem_phone}</td>
+                                        <td>${data.mem_email}</td>
+                                        <td>${data.mem_gender}</td>
+                                        <td>${data.mem_city}</td>
+                                        <td>${data.mem_address}</td>
+                                        <td>${data.mem_join}</td>
+                                        <td>${data.mem_point}</td>
+                                        <td>${data.mem_lv}</td>
+                                        <td>${data.mem_sanc}</td>
+                                        `;
+                                        table2.append(html);
+                             }
+                          }else{
+                              alert("data 없음");
+                          }
+                      }
+                  });
+            };
+
+            function memSanc() {
+                const mem_id = $('#mem_id').val();
+                $.ajax({
+                    url: '/memberView/memSanc',
+                      dataType: 'json',
+                      type: 'GET',
+                      data: {"mem_id":mem_id},
+                      success: function(result) {
+                          console.log(result)
+                          if (result["status"]==true) {
+                             alert(mem_id+"님 제재 처리 완료")
+                             console.log(result["data"])
+                          }else{
+                            alert("처리 실패") 
+                          }
+                      }
+                  });
+            };
+        </script>
      </head>
      <body>
-         <h1>ȸ�� ��ü ����</h1>
-         <form action = "/memberView" method = "post">
-             ��ȭ ���� : <input type = "text" name = "title">
-             <input type = "submit" value = "�˻�">
-
+         <h1>회원 데이터 </h1>
              <script>
                  function getURL(){
                      alert("THE URL of this page is " + window.location.href);
                  }
              </script>
+            <div>
+                <table id="table">
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>핸드폰번호</th>
+                    <th>이메일</th>
+                    <th>성별</th>
+                    <th>주소1</th>
+                    <th>주소2</th>
+                    <th>가입일</th>
+                    <th>포인트</th>
+                    <th>레벨</th>
+                    <th>제재여부</th>
+                </table>
+            </div>
+             <button type = "button" onclick="getList()">get List</button>
+             <button type = "button" onclick="getURL()">get url</button>
+             <button type = "button" onclick="getLv(1)">get LV1</button>
+             <button type = "button" onclick="getLv(2)">get LV2</button>
+             <button type = "button" onclick="getLv(3)">get LV3</button>
 
-             <button type = "button" onclick="getURL()">get page</button>
-     </body>
+             <hr>
+
+             <h1>제재 회원 조회</h1>
+             <div>
+                <table id="table2">
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>핸드폰번호</th>
+                    <th>이메일</th>
+                    <th>성별</th>
+                    <th>주소1</th>
+                    <th>주소2</th>
+                    <th>가입일</th>
+                    <th>포인트</th>
+                    <th>레벨</th>
+                    <th>제재여부</th>
+                </table>
+            </div>
+             <button type = "button" onclick="getSanc()">get sanc</button>
+             <br><br>
+             <h2>회원 제재 관리</h2>
+             회원 아이디 : <input type="text" id="mem_id">
+             <button type = "button" onclick="memSanc()">제재관리</button>
+</body>
 </html>
