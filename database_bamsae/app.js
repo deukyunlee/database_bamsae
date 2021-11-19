@@ -65,8 +65,6 @@ app.use('/node_modules', express.static(path.join(__dirname + '/node_modules')))
 
 
 // Router 연결
-var memLogin = require('./router/memLogin');
-// var memJoin = require('./router/memJoin.js');
 var movieSearch = require('./router/movieSearch');
 var store = require('./router/store');
 var movie = require('./router/movie');
@@ -80,18 +78,25 @@ var kakaoPay = require('./router/kakaopay');
 var paySuccess = require('./router/paySuccess');
 var result = require('./router/result');
 
-
-app.use('/memLogin', memLogin);
-// app.use('/memJoin', memJoin);
-//var memLogin = require('./router/memLogin.js');
-//var memJoin = require('./router/memJoin.js');
 var movieSearch = require('./router/movieSearch.js');
 var store = require('./router/store.js');
 var movie = require('./router/movie.js');
 var theater = require('./router/theater.js');
 var memberView = require('./router/memberView.js');
 
-//app.use('/memLogin', memLogin);
+var main = require('./router/main.js');
+var memLogin = require('./router/memLogin.js');
+var memJoin = require('./router/memJoin.js');
+var memFind = require('./router/memFind.js');
+var theaterManage = require('./router/theaterManage.js');
+var theaterSales = require('./router/theaterSales.js');
+var theaterPost = require('./router/theaterPost.js');
+var theaterStock = require('./router/theaterStock.js');
+var theaterEmp = require('./router/theaterEmp.js');
+var theaterDil = require('./router/theaterEmpDil.js');
+var theaterSalary = require('./router/theaterSalary.js');
+var theaterSchedule = require('./router/theaterSchedule.js');
+
 app.use('/movieSearch', movieSearch);
 app.use('/store', store);
 app.use('/movie', movie);
@@ -105,7 +110,18 @@ app.use('/kakaoPay',kakaoPay);
 app.use('/paySuccess',paySuccess);
 app.use('/result',result);
 app.use('/memberView',memberView);
-//app.use('/memJoin', memJoin);
+app.use('/', main);
+app.use('/memLogin', memLogin);
+app.use('/memJoin', memJoin);
+app.use('/memFind', memFind);
+app.use('/theater', theaterManage);
+app.use('/theater/sales', theaterSales);
+app.use('/theater/post', theaterPost);
+app.use('/theater/stock', theaterStock);
+app.use('/theater/emp', theaterEmp);
+app.use('/theater/dil', theaterDil);
+app.use('/theater/sal', theaterSalary);
+app.use('/theater/sched', theaterSchedule)
 
 app.get('/', (req, res) => {
 	res.send('Hello World!')
