@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>로그인</title>
+</head>
+<body>
+    <h2>로그인</h2>
+
+    <!--에러 메세지 처리-->
+    <% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+    <% } %>
+    <% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+    <% } %>
+    <% if (messages.join) { %>
+    <p style="color:green"><%- messages.join %></p>
+    <% } %>
+
+    <!--로그인 정보 폼-->
+    <section>
+        <form action="/memLogin/auth" method="post" name="form">
+            <!--아이디 폼-->
+            회원 아이디<br>
+            <input name="mem_id"><br>
+
+            <!--비밀번호 폼-->
+            비밀번호<br>
+            <input name="mem_pw" type="password">
+
+            <!--로그인 버튼-->
+            <input type="submit" value="로그인"><br><br>
+        </form>
+
+        <!--ID&PW 찾기 / 회원가입 이동 버튼-->
+        <button onclick="location.href='/memFInd'">ID/PW 찾기</button>
+        <button onclick="location.href='/memJoin'">회원가입</button>
+    </section>
+</body>
+
+</html>
