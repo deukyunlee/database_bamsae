@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>비밀번호 재설정</title>
+</head>
+<body>
+    <!--ID ã��-->
+    <section>
+        <h2>비밀번호 재설정</h2>
+        <h5>비밀번호는 8~16자 사이로 영문, 숫자, 특수문자를 조합해 작성해주세요.</h5>
+
+        <!--에러 처리-->
+        <% if (messages.error) { %>
+        <p style="color:red"><%- messages.error %></p>
+        <% } %>
+
+        <!--비밀번호 입력 폼-->
+        <form action='/memFind/put-pw' method="post" name="put-pw">
+            비밀번호<br>
+            <input type="password" name="mem_pw"><br>
+            비밀번호 재확인<br>
+            <input type="password" name="mem_pw2">
+            <input type="submit" value="확인">
+        </form>
+    </section>
+</body>
+</html>
