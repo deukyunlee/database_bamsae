@@ -68,11 +68,27 @@ var main = require('./router/main.js');
 var memLogin = require('./router/memLogin.js');
 var memJoin = require('./router/memJoin.js');
 var memFind = require('./router/memFind.js');
+var theaterManage = require('./router/theaterManage.js');
+var theaterSales = require('./router/theaterSales.js');
+var theaterPost = require('./router/theaterPost.js');
+var theaterStock = require('./router/theaterStock.js');
+var theaterEmp = require('./router/theaterEmp.js');
+var theaterDil = require('./router/theaterEmpDil.js');
+var theaterSalary = require('./router/theaterSalary.js');
+var theaterSchedule = require('./router/theaterSchedule.js');
 
 app.use('/', main);
 app.use('/memLogin', memLogin);
 app.use('/memJoin', memJoin);
 app.use('/memFind', memFind);
+app.use('/theater', theaterManage);
+app.use('/theater/sales', theaterSales);
+app.use('/theater/post', theaterPost);
+app.use('/theater/stock', theaterStock);
+app.use('/theater/emp', theaterEmp);
+app.use('/theater/dil', theaterDil);
+app.use('/theater/sal', theaterSalary);
+app.use('/theater/sched', theaterSchedule)
 
 
 // ½ÇÇà

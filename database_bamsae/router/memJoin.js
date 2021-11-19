@@ -48,7 +48,7 @@ router.post('/post-mem', function (req, rest) {
 
         db.query('INSERT INTO member VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now());',
             [mem_id, mem_pw, 1, mem_name, mem_phone, mem_email, mem_birth, mem_gender, mem_city, mem_address, 0], function (err, result) {
-                if (err) {
+            if (err) {
                 console.log(err)
                 req.flash('error', err)
                 res.render('memJoin')
