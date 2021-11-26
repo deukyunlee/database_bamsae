@@ -81,13 +81,13 @@ var memberView = require('./router/memberView');
 var question = require('./router/question');
 var platform = require('./router/platform');
 
-
-app.use('/memLogin', memLogin);
 var movieSearch = require('./router/movieSearch.js');
 var store = require('./router/store.js');
 var movie = require('./router/movie.js');
 var theater = require('./router/theater.js');
 var memberView = require('./router/memberView.js');
+var memReview = require('./router/memReview.js');
+var memService = require('./router/memService.js');
 
 var main = require('./router/main.js');
 var memLogin = require('./router/memLogin.js');
@@ -102,6 +102,7 @@ var theaterDil = require('./router/theaterEmpDil.js');
 var theaterSalary = require('./router/theaterSalary.js');
 var theaterSchedule = require('./router/theaterSchedule.js');
 
+app.use('/memLogin', memLogin);
 app.use('/movieSearch', movieSearch);
 app.use('/store', store);
 app.use('/movie', movie);
@@ -117,6 +118,8 @@ app.use('/result',result);
 app.use('/memberView',memberView);
 app.use('/question',question); 
 app.use('/platform',platform); 
+app.use('/memReview',memReview); 
+app.use('/memService',memService); 
 
 app.use('/', main);
 app.use('/memLogin', memLogin);
