@@ -81,8 +81,6 @@ var memberView = require('./router/memberView');
 var question = require('./router/question');
 var platform = require('./router/platform');
 
-
-app.use('/memLogin', memLogin);
 var movieSearch = require('./router/movieSearch.js');
 var store = require('./router/store.js');
 var movie = require('./router/movie.js');
