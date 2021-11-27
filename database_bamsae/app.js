@@ -62,7 +62,6 @@ app.use("/node_modules", express.static(path.join(__dirname + "/node_modules")))
 
 // Router 연결
 
-const memLogin = require("./router/memLogin")
 const movieSearch = require("./router/movieSearch")
 const store = require("./router/store")
 const movie = require("./router/movie")
@@ -83,24 +82,37 @@ const companyStastics = require("./router/companyStastics")
 const movieReservation = require("./router/movieReservation")
 const memberPoint = require("./router/memberPoint")
 
+const memberView = require("./router/memberView")
+const question = require("./router/question")
+const platform = require("./router/platform")
+const memReview = require("./router/memReview")
+const memService = require("./router/memService")
+var main = require("./router/main.js")
+var memLogin = require("./router/memLogin.js")
+var memJoin = require("./router/memJoin.js")
+var memFind = require("./router/memFind.js")
+var theaterManage = require("./router/theaterManage.js")
+var theaterSales = require("./router/theaterSales.js")
+var theaterPost = require("./router/theaterPost.js")
+var theaterStock = require("./router/theaterStock.js")
+var theaterEmp = require("./router/theaterEmp.js")
+var theaterDil = require("./router/theaterEmpDil.js")
+var theaterSalary = require("./router/theaterSalary.js")
+var theaterSchedule = require("./router/theaterSchedule.js")
 
-app.use('/memberView',memberView);
-app.use('/question',question); 
-app.use('/platform',platform); 
-app.use('/memReview',memReview); 
-app.use('/memService',memService); 
+app.use("/memberView", memberView)
+app.use("/question", question)
+app.use("/platform", platform)
+app.use("/memReview", memReview)
+app.use("/memService", memService)
 app.use("/memLogin", memLogin)
 
-
-// app.use('/memJoin', memJoin);
 app.use("/movieSearch", movieSearch)
 app.use("/store", store)
 app.use("/movie", movie)
 app.use("/theater", theater)
 app.use("/movieHistory", movieHistory)
-//app.use("/point", point)
 app.use("/fastTicket", fastTicket)
-//app.use("/memWish", memWish)
 app.use("/memberWish", memberWish)
 app.use("/movieSchedule", movieSchedule)
 app.use("/kakaoPay", kakaoPay)
@@ -115,24 +127,21 @@ app.use("/company/stastics", companyStastics)
 app.use("/reservation", movieReservation)
 app.use("/mem/point", memberPoint)
 
-
-app.use('/', main);
-app.use('/memLogin', memLogin);
-app.use('/memJoin', memJoin);
-app.use('/memFind', memFind);
-app.use('/theater', theaterManage);
-app.use('/theater/sales', theaterSales);
-app.use('/theater/post', theaterPost);
-app.use('/theater/stock', theaterStock);
-app.use('/theater/emp', theaterEmp);
-app.use('/theater/dil', theaterDil);
-app.use('/theater/sal', theaterSalary);
-app.use('/theater/sched', theaterSchedule)
+app.use("/", main)
+app.use("/memLogin", memLogin)
+app.use("/memJoin", memJoin)
+app.use("/memFind", memFind)
+app.use("/theater", theaterManage)
+app.use("/theater/sales", theaterSales)
+app.use("/theater/post", theaterPost)
+app.use("/theater/stock", theaterStock)
+app.use("/theater/emp", theaterEmp)
+app.use("/theater/dil", theaterDil)
+app.use("/theater/sal", theaterSalary)
+app.use("/theater/sched", theaterSchedule)
 app.get("/", (req, res) => {
   res.send("Hello World!")
->>>>>>> duke
 })
-
 
 // 실행
 app.listen(port, () => console.log(`Server Started on port ${port}`))
